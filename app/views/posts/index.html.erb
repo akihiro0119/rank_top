@@ -1,0 +1,28 @@
+
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row">
+    <% @posts.each do |post| %>
+      <div class="col-md-4">
+        <div class="card md-4 shadow-sm">
+          <%= image_tag post.image, class:"card-img-top" if post.image.attached? %>
+          
+          <div class="card-body">
+          <h5 class="card-title"><%= post.title %>
+          </h5>
+            <p class="card-text"><%= post.body %></p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-outline-secondary">詳細</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary">
+              <%= post.user.name %></button>
+            </div>
+            <small class="text-muted"><%= post.updated_at %>
+            </small>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>
