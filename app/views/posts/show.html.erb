@@ -2,17 +2,19 @@
   <div class="card-body">
   
     <h5 class="card-title"><%= @post.title %></h5>
-    <p class="card-text"><%= @post.body %></p>
+    <p class="card-text"><%= @post.rank1 %></p>
+    <p class="card-text"><%= @post.rank2 %></p>
+    <p class="card-text"><%= @post.rank3 %></p>
     <p class="card-text"><small class="text-muted"><%= @post.updated_at %></small></p>
   
 
     <% if user_signed_in? && current_user.id == @post.user.id %>
           <div class="prototype__manage">
           <button type="button" class="btn btn-sm btn-outline-secondary">
-            <%= button_to "編集する", edit_post_path(@post.id) %>
+            <%= link_to "編集する", edit_post_path(@post.id) %>
           </button>
           <button type="button" class="btn btn-sm btn-outline-secondary">
-            <%= button_to "削除する", post_path(@post.id), method: :delete %>
+            <%= link_to "削除する", post_path(@post.id), method: :delete %>
           </button>
           </div>
     <% end %>

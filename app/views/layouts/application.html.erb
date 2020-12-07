@@ -21,8 +21,16 @@
       <div class="container">
         <h1 class="display-4">Rank Topへようこそ！</h1>
         <p class="lead">ここではあなたが日常や趣味の中で思った「個人的ランキング」を投稿して同じ感性を持った人から共感を得られます！</p>
-        <button type="button" class="btn btn-outline-primary"><%= link_to "TOPページへ",root_path, method: :get %></button>
+
+        <div class="d-flex justify-content-around">
+
         <button type="button" class="btn btn-outline-primary"><%= link_to "投稿する",new_post_path, method: :get %></button>
+        <button type="button" class="btn btn-outline-primary"><%= link_to "TOPページへ",root_path, method: :get %></button>
+        <button type="button" class="btn btn-outline-primary"><%= link_to current_user.name %></button>
+        <button type="button" class="btn btn-outline-primary"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></button>
+
+        </div>
+        
       </div>
       </div>
     </header>
