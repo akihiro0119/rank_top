@@ -34,7 +34,9 @@ ActiveRecord::Schema.define(version: 2020_12_05_222031) do
   end
 
   create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "body", null: false
+    t.text "rank1", null: false
+    t.text "rank2", null: false
+    t.text "rank3", null: false
     t.string "title", null: false
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
