@@ -1,7 +1,10 @@
+ <button type="button" class="btn btn-outline-primary"><%= link_to "TOPページへ",root_path, method: :get %></button>
+    <button type="button" class="btn btn-outline-primary"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></button>
+ 
  <%= form_with(model: @post, local: true) do |form| %>
 
      <div class="form-group">
-      <%= form.text_field :title, class:"form-control", placeholder: "タイトルを入力してください" %>
+      <%= form.text_area :title, class:"form-control", placeholder: "タイトルを入力してください" %>
      </div>
     
 

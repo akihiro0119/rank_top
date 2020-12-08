@@ -1,34 +1,43 @@
 
-  <header class="header">
-    <button type="button" class="btn btn-primary btn-lg btn-block">
-        <%= link_to "Rank Top",root_path, method: :get %>
-        </button>
   <%# ここはあとでロゴをかく %>
 
-        <div class="jumbotron jumbotron-fluid">
-        <div class="container">
+       
+        
 
         
 
-        <% if user_signed_in? %>
-          
+<% if user_signed_in? %>
+
+<nav aria-label="breadcrumb">
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <h3><%=link_to "TOPページへ",root_path, class:"nav-link active"  %>
+      </li></h3>
+      <li class="nav-item">
+        <h3><%= link_to "投稿する",new_post_path,class:"nav-link",method: :get %>
+      </li></h3>
+      <li class="nav-item">
+      <h3><%= link_to "ログアウト", destroy_user_session_path,class:"nav-link", method: :delete %>
+      </li></h3>
+      <li class="nav-item">
+        <h3><%= link_to current_user.name, user_path(current_user), class:"nav-link" %>
+      </li></h3>
+    </ul>
+
+
+  <% else %>
+    <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    <h1 class="display-4">Rank Topへようこそ！ゲストさん</h1>
+    <p class="lead">ここではあなたが日常や趣味の中で思った「個人的ランキング」を投稿して同じ感性を持った人から共感を得られます！</p>
+
+    <button type="button" class="btn btn-outline-primary"><%= link_to "ログイン",user_session_path %></button>
+    <button type="button" class="btn btn-outline-primary"class="fas fa-address-card"><%= link_to "新規登録",new_user_registration_path %></button>
+
+  </nav> 
+  
         
-        <div class="d-flex justify-content-around">
-
-          <button type="button" class="btn btn-outline-primary"><%= link_to current_user.name, user_path(current_user) %></button>
-          <button type="button" class="btn btn-outline-primary"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></button>
-          <button type="button" class="btn btn-outline-primary"><%= link_to "投稿する",new_post_path, method: :get %></button>
-          <button type="button" class="btn btn-outline-primary"><%= link_to "TOPページへ",root_path, method: :get %></button>
-
-          <% else %>
-
-          <h1 class="display-4">Rank Topへようこそ！ゲストさん</h1>
-          <p class="lead">ここではあなたが日常や趣味の中で思った「個人的ランキング」を投稿して同じ感性を持った人から共感を得られます！</p>
-
-          <button type="button" class="btn btn-outline-primary"><%= link_to "ログイン",user_session_path %></button>
-          <button type="button" class="btn btn-outline-primary"class="fas fa-address-card"><%= link_to "新規登録",new_user_registration_path %></button>
-        
-          <% end %>
+  <% end %>
         </div>
 
         </div>
