@@ -19,7 +19,7 @@
           <button type="button" class="btn btn-sm btn-outline-secondary">
             <%= link_to '詳細', post_path(post.id) , method: :get %></button>
           <button type="button" class="btn btn-sm btn-outline-secondary">
-            <%= post.user.name %></button>
+            <%=link_to post.user.name, user_path(post.user.id)%></button>
     </div>
     
       <p class="card-text">
