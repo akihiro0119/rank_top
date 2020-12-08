@@ -1,7 +1,13 @@
 <div class="contents row">
   <div class="container">
-    <h3>投稿する</h3>
-    
+  
+    <h1>投稿する</h1>
+    <p>
+    <button type="button" class="btn btn-outline-primary"><%= link_to "TOPページへ",root_path, method: :get %></button>
+    <button type="button" class="btn btn-outline-primary"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></button>
+    </p>
+    <p>
     <%= render partial: "form", locals: { post: @post } %>
+    </p>
   </div>
 </div>
