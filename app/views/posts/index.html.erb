@@ -2,8 +2,8 @@
 
   <div class="row row-cols md-3">
   <% @posts.each do |post| %>
-  <div class="card　d-flex justify-content-around m-5" style="width: 30rem; heigth: 100rem;">
-  <div class="card-body">
+  <div class="card　d-flex justify-content-around m-5" style="width: auto; heigth: auto;">
+  <div class="card-body border border-primary">
   
   
     <%= image_tag post.image, :width => '280', :height => '280'if post.image.attached? %> 
@@ -16,11 +16,14 @@
     
 
     <div class="btn-group">
-          <button type="button" class="btn btn-sm btn-outline-secondary">
+          <button type="button" class="btn btn-5m btn-outline-secondary">
             <%= link_to '詳細', post_path(post.id) , method: :get %></button>
-          <button type="button" class="btn btn-sm btn-outline-secondary">
-            <%= post.user.name %></button>
+          <button type="button" class="btn btn-5m btn-outline-secondary">
+            <%=link_to post.user.name, user_path(post.user.id)%></button>
     </div>
+          <i class="far fa-star"></i>
+
+
     
       <p class="card-text">
       <small class="text-muted"><%= post.updated_at %>
