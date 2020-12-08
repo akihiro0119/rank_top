@@ -1,0 +1,12 @@
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4"><%= @user.name %>さんのページです</h1>
+    <p class="lead"><%= @user.profile %></p>
+  </div>
+</div>
+
+<div class="row row-cols md-3">
+
+<%= render partial: 'posts/post', collection: @user.posts.order("created_at DESC") %>
+

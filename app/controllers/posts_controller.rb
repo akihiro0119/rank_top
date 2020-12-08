@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show] 
+  before_action :move_to_index, only: :edit
 
   def index
     @posts = Post.includes(:user).order("created_at DESC")
@@ -32,11 +34,19 @@ class PostsController < ApplicationController
   def destroy
     post = Post.find(params[:id])
     post.destroy
+    redirect_to root_path
   end
 
 private
 
   def post_params
     params.require(:post).permit(:title, :rank1, :rank2, :rank3, :image).merge(user_id: current_user.id)
+  end
+
+  def move_to_index
+    @post = Post.find(params[:id])
+    unless user_signed_in? && current_user.id == @post.user.id
+      redirect_to action: :index
+    end
   end
 end

@@ -14,7 +14,7 @@
             <%= link_to "編集する", edit_post_path(@post.id) %>
           </button>
           <button type="button" class="btn btn-sm btn-outline-secondary">
-            <%= link_to "削除する", post_path(@post.id), method: :delete %>
+            <%= link_to "削除する", post_path(@post.id), method: :delete, data: { confirm: "この投稿を削除して大丈夫ですか?" } %>
           </button>
           </div>
     <% end %>
