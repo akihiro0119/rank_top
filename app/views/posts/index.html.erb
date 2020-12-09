@@ -21,7 +21,10 @@
           <button type="button" class="btn btn-5m btn-outline-secondary">
             <%=link_to post.user.name, user_path(post.user.id)%></button>
     </div>
-          <i class="far fa-star"></i>
+
+    <div id="likes_buttons_<%= post.likes_count %>">
+        <%= render partial:'likes/like', locals: { post: post} %>
+    </div>
 
 
     
