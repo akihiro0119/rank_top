@@ -15,12 +15,17 @@
     <% if user_signed_in? && current_user.id == @post.user.id %>
           <div class="prototype__manage">
           <button type="button" class="btn btn-sm btn-outline-secondary">
+            <%= link_to "戻る", root_path %>
+          </button>
+          <span>
+          <button type="button" class="btn btn-sm btn-outline-secondary">
             <%= link_to "編集する", edit_post_path(@post.id) %>
           </button>
           <button type="button" class="btn btn-sm btn-outline-secondary">
             <%= link_to "削除する", post_path(@post.id), method: :delete, data: { confirm: "この投稿を削除して大丈夫ですか?" } %>
           </button>
           </div>
+          </span>
     <% end %>
 
   </div>
@@ -31,7 +36,26 @@
     </div>
 </div>
 
-
+<br>
+<% if current_user %>
+      <%= form_with(model: [@post, @comment], local: true) do |form| %>
+        <%= form.text_area :text, placeholder: "コメントする", rows: "2" %>
+        <button type="button" class="btn">
+        <%= form.submit "送信する" %></button>
+      <% end %>
+<% else %>
+      <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
+<% end %>
+    <div>
+      <h4>＜コメント一覧＞</h4>
+<% if @comments %>
+        <% @comments.each do |comment| %>
+          <p>
+            <strong><%= link_to comment.user.name, "/users/#{comment.user_id}" %>：</strong>
+            <%= comment.text %>
+          </p>
+        <% end %>
+<% end %>
 
 
 

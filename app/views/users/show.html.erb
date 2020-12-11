@@ -6,6 +6,10 @@
   </div>
 </div>
 
+<button type="button" class="btn btn-outline-secondary">
+  <%= link_to "戻る", root_path %>
+</button>
+
 <div class="row row-cols md-3">
 
 <%= render partial: 'posts/post', collection: @user.posts.order("created_at DESC") %>
