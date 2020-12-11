@@ -21,13 +21,16 @@
           <button type="button" class="btn btn-5m btn-outline-secondary">
             <%=link_to post.user.name, user_path(post.user.id)%></button>
     </div>
-          <i class="far fa-star"></i>
+
+    <div id="like_button_<%= post.likes_count %>">
+        いいね<%= render partial:'likes/like', locals: { post: post, like: @likes } %>
+    </div>
 
 
     
       <p class="card-text">
-      <small class="text-muted"><%= post.updated_at %>
-      </small>
+        <small class="text-muted"><%= post.updated_at %>
+        </small>
       </p>
 
   </div>

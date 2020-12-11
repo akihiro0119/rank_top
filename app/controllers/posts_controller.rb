@@ -1,9 +1,10 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show] 
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :move_to_index, only: :edit
 
   def index
-    @posts = Post.includes(:user).order("created_at DESC")
+    @posts = Post.includes(:user).order('created_at DESC')
+    @likes = Like.where(user_id: current_user)
   end
 
   def new
@@ -11,7 +12,13 @@ class PostsController < ApplicationController
   end
 
   def create
-    Post.create(post_params)
+    @post = Post.new(post_params)
+    @post.likes_count = (0)
+    if @post.save
+      redirect_to root_path
+    else
+      render :new
+    end
   end
 
   def show
@@ -24,11 +31,11 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-      if @post.update(post_params)
-        redirect_to root_path
-      else
-        render :edit
-      end
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -37,16 +44,14 @@ class PostsController < ApplicationController
     redirect_to root_path
   end
 
-private
+  private
 
   def post_params
-    params.require(:post).permit(:title, :rank1, :rank2, :rank3, :image).merge(user_id: current_user.id)
+    params.require(:post).permit(:title, :rank1, :rank2, :rank3, :image, :likes_count).merge(user_id: current_user.id)
   end
 
   def move_to_index
     @post = Post.find(params[:id])
-    unless user_signed_in? && current_user.id == @post.user.id
-      redirect_to action: :index
-    end
+    redirect_to action: :index unless user_signed_in? && current_user.id == @post.user.id
   end
 end
