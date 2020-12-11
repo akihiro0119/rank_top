@@ -4,6 +4,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.includes(:user).order('created_at DESC')
+    @likes = Like.where(user_id: current_user)
   end
 
   def new
@@ -12,7 +13,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post.likes_count = 0
+    @post.likes_count = (0)
     if @post.save
       redirect_to root_path
     else
@@ -46,7 +47,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :rank1, :rank2, :rank3, :image, :like_count).merge(user_id: current_user.id)
+    params.require(:post).permit(:title, :rank1, :rank2, :rank3, :image, :likes_count).merge(user_id: current_user.id)
   end
 
   def move_to_index
