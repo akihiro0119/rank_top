@@ -6,6 +6,10 @@
     <p class="card-text"><%= @post.rank2 %></p>
     <p class="card-text"><%= @post.rank3 %></p>
     <p class="card-text"><small class="text-muted"><%= @post.updated_at %></small></p>
+
+    <div id="likes_buttons_<%= @post.id %>">
+      <%= render partial: 'likes/like', locals: { post: @post} %>
+    </div>
   
 
     <% if user_signed_in? && current_user.id == @post.user.id %>
@@ -23,7 +27,7 @@
 
 
     <div class="col">
-    <%= image_tag @post.image, class:"img-fluid" if @post.image.attached? %>
+    <%= image_tag @post.image,  :width => '500', :height => '500'if @post.image.attached? %>
     </div>
 </div>
 
