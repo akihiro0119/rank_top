@@ -1,8 +1,16 @@
-class Post < ActiveRecord::Base
+class Post < ApplicationRecord
   has_one_attached :image
   belongs_to :user
   has_many :likes, dependent: :destroy
   def like_user(user_id)
     likes.find_by(user_id: user_id)
   end
+  has_many :comments
+
+
+validates :title, presence: true
+validates :rank1, presence: true
+validates :rank2, presence: true
+validates :rank3, presence: true
+
 end
