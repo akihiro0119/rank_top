@@ -13,4 +13,14 @@ validates :rank1, presence: true
 validates :rank2, presence: true
 validates :rank3, presence: true
 
+
+
+  def self.search(search)
+    if search != ""
+      Post.where('title LIKE(?)', "%#{search}%")
+    else
+      Post.all
+    end
+  end
+
 end
