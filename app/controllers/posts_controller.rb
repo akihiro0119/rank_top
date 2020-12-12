@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :move_to_index, only: :edit
+  before_action :authenticate_user!, except: [:index, :show, :search]
+  before_action :move_to_index, except: [:index, :show, :search]
 
   def index
     @posts = Post.includes(:user).order('created_at DESC')
@@ -46,6 +46,10 @@ class PostsController < ApplicationController
     redirect_to root_path
   end
 
+  def search
+    @posts = Post.search(params[:keyword])
+  end
+
   private
 
   def post_params
@@ -53,7 +57,9 @@ class PostsController < ApplicationController
   end
 
   def move_to_index
-    @post = Post.find(params[:id])
-    redirect_to action: :index unless user_signed_in? && current_user.id == @post.user.id
+    unless user_signed_in?
+      redirect_to action: :index
+    end
   end
+
 end
