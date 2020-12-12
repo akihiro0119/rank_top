@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :move_to_index, exsept: [:index, :show, :search]
+  before_action :authenticate_user!, except: [:index, :show, :search]
+  before_action :move_to_index, except: [:index, :show, :search]
 
   def index
     @posts = Post.includes(:user).order('created_at DESC')
