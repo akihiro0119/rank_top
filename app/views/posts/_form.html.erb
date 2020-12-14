@@ -1,7 +1,7 @@
  <button type="button" class="btn btn-outline-primary"><%= link_to "TOPページへ",root_path, method: :get %></button>
     <button type="button" class="btn btn-outline-primary"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></button>
  
- <%= form_with(model: @post, local: true) do |form| %>
+ <%= form_with model: @post, local: true do |form| %>
 
      <div class="form-group">
       <%= form.text_area :title, class:"form-control", placeholder: "タイトルを入力してください" %>
@@ -20,6 +20,25 @@
       <%= form.file_field :image, class:"form-control-file"%>
     </div>
 
+
+    <div class='form-group'>
+        <%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :tag_name) do |tag| %>
+            <div class='form-check'>
+                <%= tag.label class: 'form-check-label' do %>
+                    <%= tag.check_box class: 'form-check-input' %>
+                    <%= tag.text %>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+
+
+
+
+
+
+
     <%= form.submit "投稿する" ,class:"sell-btn" %>
 
 <% end %>
+

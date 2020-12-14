@@ -2,14 +2,23 @@
   <div class="card-body">
   
     <h5 class="card-title"><%= @post.title %></h5>
-    <p class="card-text"><%= @post.rank1 %></p>
-    <p class="card-text"><%= @post.rank2 %></p>
-    <p class="card-text"><%= @post.rank3 %></p>
+    1位<p class="card-text"><%= @post.rank1 %></p>
+    2位<p class="card-text"><%= @post.rank2 %></p>
+    3位<p class="card-text"><%= @post.rank3 %></p>
     <p class="card-text"><small class="text-muted"><%= @post.updated_at %></small></p>
 
     <div id="likes_buttons_<%= @post.id %>">
       <%= render partial: 'likes/like', locals: { post: @post} %>
     </div>
+
+    <% @post.tags.each do |tag| %>
+        <span class= 'badge badge-primary'>
+        <%= tag.tag_name %>
+        </span>
+      <% end %>
+
+
+        
   
 
     <% if user_signed_in? && current_user.id == @post.user.id %>
