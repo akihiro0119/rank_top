@@ -16,6 +16,8 @@
       １位<p class="card-text"><%= post.rank1 %></p>
       ２位<p class="card-text"><%= post.rank2 %></p>
       ３位<p class="card-text"><%= post.rank3 %></p>
+
+             
     
 
     <div class="btn-group">
@@ -38,9 +40,21 @@
         </small>
       </p>
 
+       <% post.tags.each do |tag| %>
+        <span class= 'badge badge-primary'>
+        <%= tag.tag_name %>
+        </span>
+      <% end %>
+
 
   </div>
   </div>
-  <% end %>
+  
+ 
+     
+
+   <% end %>
+    
+  
   </div>
 

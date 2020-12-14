@@ -10,14 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-
-ActiveRecord::Schema.define(version: 2020_12_05_222031) do
-
-ActiveRecord::Schema.define(version: 2020_12_14_035022) do
-
-ActiveRecord::Schema.define(version: 2020_12_11_075708) do
-
+ActiveRecord::Schema.define(version: 2020_12_14_084720) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -40,7 +33,6 @@ ActiveRecord::Schema.define(version: 2020_12_11_075708) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "post_id"
@@ -60,7 +52,6 @@ ActiveRecord::Schema.define(version: 2020_12_11_075708) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
-
   create_table "post_tag_relations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "post_id"
     t.bigint "tag_id"
@@ -70,19 +61,12 @@ ActiveRecord::Schema.define(version: 2020_12_11_075708) do
     t.index ["tag_id"], name: "index_post_tag_relations_on_tag_id"
   end
 
-
   create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "rank1", null: false
     t.text "rank2", null: false
     t.text "rank3", null: false
     t.string "title", null: false
-
-
-
     t.integer "likes_count"
-
-    t.integer "likes_count", null: false
-
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -100,7 +84,6 @@ ActiveRecord::Schema.define(version: 2020_12_11_075708) do
     t.string "encrypted_password", default: "", null: false
     t.string "name", null: false
     t.text "profile", null: false
-    t.string "profile_image", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -111,16 +94,11 @@ ActiveRecord::Schema.define(version: 2020_12_11_075708) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-
-
-
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
-
   add_foreign_key "post_tag_relations", "posts"
   add_foreign_key "post_tag_relations", "tags"
-
   add_foreign_key "posts", "users"
 end

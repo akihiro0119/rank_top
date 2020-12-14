@@ -47,13 +47,13 @@ class PostsController < ApplicationController
   end
 
   def search
-    @posts = Post.search(params[:keyword])
+    @posts =Post.search(params[:keyword])
   end
 
   private
 
   def post_params
-    params.require(:post).permit(:title, :rank1, :rank2, :rank3, :image, :likes_count).merge(user_id: current_user.id)
+    params.require(:post).permit(:title, :rank1, :rank2, :rank3, :image, :likes_count, tag_ids: []).merge(user_id: current_user.id)
   end
 
   def move_to_index
