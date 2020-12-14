@@ -1,7 +1,10 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show, :search]
+  before_action :move_to_index, except: [:index, :show, :search]
 
   def index
-    @posts = Post.includes(:user).order("created_at DESC")
+    @posts = Post.includes(:user).order('created_at DESC')
+    @likes = Like.where(user_id: current_user)
   end
 
   def new
@@ -9,11 +12,19 @@ class PostsController < ApplicationController
   end
 
   def create
-    Post.create(post_params)
+    @post = Post.new(post_params)
+    @post.likes_count = (0)
+    if @post.save
+      redirect_to root_path
+    else
+      render :new
+    end
   end
 
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
+    @comments = @post.comments.includes(:user)
   end
 
   def edit
@@ -22,21 +33,33 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-      if @post.update(post_params)
-        redirect_to root_path
-      else
-        render :edit
-      end
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit
+    end
   end
 
   def destroy
     post = Post.find(params[:id])
     post.destroy
+    redirect_to root_path
   end
 
-private
+  def search
+    @posts = Post.search(params[:keyword])
+  end
+
+  private
 
   def post_params
-    params.require(:post).permit(:title, :rank1, :rank2, :rank3, :image).merge(user_id: current_user.id)
+    params.require(:post).permit(:title, :rank1, :rank2, :rank3, :image, :likes_count).merge(user_id: current_user.id)
   end
+
+  def move_to_index
+    unless user_signed_in?
+      redirect_to action: :index
+    end
+  end
+
 end

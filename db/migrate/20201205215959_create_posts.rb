@@ -5,6 +5,7 @@ class CreatePosts < ActiveRecord::Migration[6.0]
       t.text :rank2, null: false
       t.text :rank3, null: false
       t.string :title, null: false
+      t.integer :likes_count 
       t.references  :user,     foreign_key: true
 
       t.timestamps

@@ -1,0 +1,12 @@
+<% if user_signed_in? %>
+    <% if post.like_user(current_user.id) %>
+        <p><span>お気に入り解除: <i class="fas fa-star"><%=link_to post.likes.count, post_likes_path(post.id), method: :delete, remote: true %></i></span>
+        </p>
+    <% else %>
+        <p><span>お気に入り登録: <i class="far fa-star"><%=link_to post.likes.count, post_likes_path(post.id), method: :post, remote: true %></i></span>
+        </p>
+    <% end %>
+<% else %>
+<i class="far fa-star"></i>
+    <p><span>お気に入り数: </span><%= post.likes.count %></p>
+<% end %>

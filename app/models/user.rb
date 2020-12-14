@@ -4,9 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-<<<<<<< Updated upstream
+
+
          has_many :posts
-=======
+
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -14,5 +15,9 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
 
->>>>>>> Stashed changes
+
+  has_many :posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :comments
+
 end
