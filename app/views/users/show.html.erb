@@ -1,0 +1,17 @@
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4"><%= @user.name %>さんのページです</h1>
+    
+    <p class="lead"><%= @user.profile %></p>
+  </div>
+</div>
+
+<button type="button" class="btn btn-outline-secondary">
+  <%= link_to "戻る", root_path %>
+</button>
+
+<div class="row row-cols md-3">
+
+<%= render partial: 'posts/post', collection: @user.posts.order("created_at DESC") %>
+
