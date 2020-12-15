@@ -66,3 +66,5 @@ gem 'font-awesome-sass'
 gem 'jquery-rails'
 
 gem 'jquery-turbolinks'
+
+gem 'ransack'
