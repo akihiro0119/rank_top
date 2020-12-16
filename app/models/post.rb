@@ -11,12 +11,12 @@ class Post < ApplicationRecord
   has_many  :post_tag_relations, dependent: :destroy
   has_many  :tags, through: :post_tag_relations
 
-
-
-validates :title, presence: true
-validates :rank1, presence: true
-validates :rank2, presence: true
-validates :rank3, presence: true
+  with_options presence: true do
+    validates :title
+    validates :rank1
+    validates :rank2
+    validates :rank3
+  end
 
 
 
