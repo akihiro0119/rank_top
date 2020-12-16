@@ -62,12 +62,6 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is invalid. Input full-width characters.')
       end
-      it 'passwordが存在してもpassword_confirmationと一致しなければ登録できない' do
-        @user.password = '123456'
-        @user.password_confirmation = '1234567'
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
-      end
       it 'profileが空だと登録できない' do
         @user.profile = nil
         @user.valid?
