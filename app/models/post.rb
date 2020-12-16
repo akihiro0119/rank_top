@@ -12,7 +12,7 @@ class Post < ApplicationRecord
   has_many  :tags, through: :post_tag_relations
 
   with_options presence: true do
-    
+
     validates :title, length: { maximum: 40 }
     validates :rank1, length: { maximum: 40 }
     validates :rank2, length: { maximum: 40 }
