@@ -8,9 +8,9 @@ RSpec.describe '投稿', type: :system do
     @post_rank2 = Faker::Lorem.sentence
     @post_rank3 = Faker::Lorem.sentence
   end
-  context '投稿ができるとき'do
+  context '投稿ができるとき' do
     it 'ログインしたユーザーは新規投稿できる' do
-     # ログインする
+      # ログインする
       visit new_user_session_path
       fill_in 'Email', with: @user.email
       fill_in 'Password', with: @user.password
@@ -26,25 +26,25 @@ RSpec.describe '投稿', type: :system do
       fill_in 'post_rank2', with: @post_rank2
       fill_in 'post_rank3', with: @post_rank3
       # 送信するとPostモデルのカウントが1上がることを確認する
-      expect{
+      expect  do
         find('input[name="commit"]').click
-      }.to change { Post.count }.by(1)
+      end.to change { Post.count }.by(1)
       # トップページに遷移する
       visit root_path
       # トップページには先ほど投稿した内容が存在することを確認する
       expect(page).to have_content(@post_title)
     end
   end
-  context '投稿ができないとき'do
+  context '投稿ができないとき' do
     it 'ログインしていないと新規投稿ページに遷移できない' do
-     # トップページに遷移する
+      # トップページに遷移する
       visit root_path
       # 新規投稿ページへのリンクがない
       expect(page).to have_no_content('投稿する')
     end
   end
 end
- 
+
 RSpec.describe '投稿編集', type: :system do
   before do
     @post1 = FactoryBot.create(:post)
@@ -76,22 +76,22 @@ RSpec.describe '投稿編集', type: :system do
         find('#post_rank3').value
       ).to eq @post1.rank3
       # 投稿内容を編集する
-      fill_in 'post_title', with: "#{@post1.title}"
-      fill_in 'post_rank1', with: "#{@post1.rank1}"
-      fill_in 'post_rank2', with: "#{@post1.rank2}"
-      fill_in 'post_rank3', with: "#{@post1.rank3}"
+      fill_in 'post_title', with: @post1.title.to_s
+      fill_in 'post_rank1', with: @post1.rank1.to_s
+      fill_in 'post_rank2', with: @post1.rank2.to_s
+      fill_in 'post_rank3', with: @post1.rank3.to_s
       # 編集してもPostモデルのカウントは変わらないことを確認する
-      expect{
+      expect  do
         find('input[name="commit"]').click
-      }.to change { Post.count }.by(0)
+      end.to change { Post.count }.by(0)
       # トップページに遷移する
       visit root_path
       # トップページには先ほど変更した内容の投稿が存在することを確認する
-      expect(page).to have_content("#{@post1.title}")
+      expect(page).to have_content(@post1.title.to_s)
       # トップページには先ほど変更した内容の投稿が存在することを確認する（テキスト）
-      expect(page).to have_content("#{@post1.rank1}")
-      expect(page).to have_content("#{@post1.rank2}")
-      expect(page).to have_content("#{@post1.rank3}")
+      expect(page).to have_content(@post1.rank1.to_s)
+      expect(page).to have_content(@post1.rank2.to_s)
+      expect(page).to have_content(@post1.rank3.to_s)
     end
   end
   context '投稿編集ができないとき' do
@@ -103,18 +103,15 @@ RSpec.describe '投稿編集', type: :system do
       find('input[name=commit').click
       expect(current_path).to eq root_path
       # 投稿2に「詳細」ボタンがないことを確認する
-      expect(@post2
-      ).to have_no_link '詳細', href: post_path(@post2)
+      expect(@post2).to have_no_link '詳細', href: post_path(@post2)
     end
     it 'ログインしていないと投稿の編集画面には遷移できない' do
       # トップページにいる
       visit root_path
       # 投稿1に「詳細」ボタンがないことを確認する
-      expect(@post1
-      ).to have_no_link '詳細', href: post_path(@post1)
+      expect(@post1).to have_no_link '詳細', href: post_path(@post1)
       # 投稿2に「編集」ボタンがないことを確認する
-      expect(@post2
-      ).to have_no_link '詳細', href: post_path(@post2)
+      expect(@post2).to have_no_link '詳細', href: post_path(@post2)
     end
   end
 end
@@ -127,23 +124,23 @@ RSpec.describe '投稿削除', type: :system do
   context '投稿削除ができるとき' do
     it 'ログインしたユーザーは自らが投稿した投稿の削除ができる' do
       # このテストを行うときは削除ボタンのアラートを消してから行う
-     # 投稿1を投稿したユーザーでログインする
+      # 投稿1を投稿したユーザーでログインする
       visit new_user_session_path
       fill_in 'Email', with: @post1.user.email
       fill_in 'Password', with: @post1.user.password
       find('input[name=commit').click
       expect(current_path).to eq root_path
-     # 詳細ページへ遷移する
+      # 詳細ページへ遷移する
       visit post_path(@post1)
       # 投稿を削除するとレコードの数が1減ることを確認する
       click_button '削除する'
       change { Post.count }.by(-1)
       # トップページには投稿1の内容が存在しないことを確認する
-      expect(page).to have_no_content("#{@post1.title}")
+      expect(page).to have_no_content(@post1.title.to_s)
       # トップページには投稿1の内容が存在しないことを確認する
-      expect(page).to have_no_content("#{@post1.rank1}")
-      expect(page).to have_no_content("#{@post1.rank2}")
-      expect(page).to have_no_content("#{@post1.rank3}")
+      expect(page).to have_no_content(@post1.rank1.to_s)
+      expect(page).to have_no_content(@post1.rank2.to_s)
+      expect(page).to have_no_content(@post1.rank3.to_s)
     end
   end
   context '投稿削除ができないとき' do
@@ -155,19 +152,16 @@ RSpec.describe '投稿削除', type: :system do
       find('input[name=commit').click
       expect(current_path).to eq root_path
       # 投稿2に「詳細」ボタンが無いことを確認する
-      expect(@post2
-      ).to have_no_link '詳細', href: post_path(@post2)
+      expect(@post2).to have_no_link '詳細', href: post_path(@post2)
     end
-  
+
     it 'ログインしていないと投稿の削除ボタンがない' do
       # トップページに移動する
       visit root_path
       # 投稿1に「詳細」ボタンが無いことを確認する
-      expect(@post1
-      ).to have_no_link '詳細', href: post_path(@post2)
+      expect(@post1).to have_no_link '詳細', href: post_path(@post2)
       # 投稿2に「詳細」ボタンが無いことを確認する
-      expect(@post2
-      ).to have_no_link '詳細', href: post_path(@post2)
+      expect(@post2).to have_no_link '詳細', href: post_path(@post2)
     end
   end
 end
@@ -178,18 +172,18 @@ RSpec.describe '投稿詳細', type: :system do
   end
   it 'ログインしたユーザーは投稿詳細ページに遷移してコメント投稿欄が表示される' do
     # ログインする
-      visit new_user_session_path
-      fill_in 'Email', with: @post.user.email
-      fill_in 'Password', with: @post.user.password
-      find('input[name=commit').click
-      expect(current_path).to eq root_path
+    visit new_user_session_path
+    fill_in 'Email', with: @post.user.email
+    fill_in 'Password', with: @post.user.password
+    find('input[name=commit').click
+    expect(current_path).to eq root_path
     # 詳細ページに遷移する
     click_button '詳細'
     # 詳細ページに投稿の内容が含まれている
-    expect(page).to have_content("#{@post.title}")
-    expect(page).to have_content("#{@post.rank1}")
-    expect(page).to have_content("#{@post.rank2}")
-    expect(page).to have_content("#{@post.rank3}")
+    expect(page).to have_content(@post.title.to_s)
+    expect(page).to have_content(@post.rank1.to_s)
+    expect(page).to have_content(@post.rank2.to_s)
+    expect(page).to have_content(@post.rank3.to_s)
     # コメント用のフォームが存在する
     expect(page).to have_selector 'form'
   end
@@ -199,10 +193,10 @@ RSpec.describe '投稿詳細', type: :system do
     # 詳細ボタンを押す
     click_button '詳細'
     # 詳細ページに投稿の内容が含まれている
-    expect(page).to have_content("#{@post.title}")
-    expect(page).to have_content("#{@post.rank1}")
-    expect(page).to have_content("#{@post.rank2}")
-    expect(page).to have_content("#{@post.rank3}")
+    expect(page).to have_content(@post.title.to_s)
+    expect(page).to have_content(@post.rank1.to_s)
+    expect(page).to have_content(@post.rank2.to_s)
+    expect(page).to have_content(@post.rank3.to_s)
     # フォームが存在しないことを確認する
     expect(page).to have_no_selector 'form'
     # 「コメントの投稿には新規登録/ログインが必要です」が表示されていることを確認する

@@ -11,9 +11,8 @@ RSpec.describe Comment, type: :model do
         expect(@comment).to be_valid
       end
     end
-  
-    context 'コメントがうまくいかない時' do
 
+    context 'コメントがうまくいかない時' do
       it 'テキストが入力されていない場合' do
         @comment.text = nil
         @comment.valid?

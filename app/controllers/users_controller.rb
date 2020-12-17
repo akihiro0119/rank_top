@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   def show
     @user = User.find(params[:id])
   end
@@ -11,9 +10,9 @@ class UsersController < ApplicationController
   end
 
   def unfollow
-      @user = User.find(params[:user_id])
-      current_user.stop_following(@user)
-      redirect_to user_path(@user)
+    @user = User.find(params[:user_id])
+    current_user.stop_following(@user)
+    redirect_to user_path(@user)
   end
 
   def follow_list
@@ -31,6 +30,4 @@ class UsersController < ApplicationController
   def follower_list
     @user = User.find(params[:user_id])
   end
-
-
 end

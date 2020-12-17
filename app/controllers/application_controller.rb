@@ -17,5 +17,4 @@ class ApplicationController < ActionController::Base
     @search = Post.ransack(params[:q])
     @posts = @search.result
   end
-
 end
