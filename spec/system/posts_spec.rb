@@ -126,6 +126,7 @@ RSpec.describe '投稿削除', type: :system do
   end
   context '投稿削除ができるとき' do
     it 'ログインしたユーザーは自らが投稿した投稿の削除ができる' do
+      # このテストを行うときは削除ボタンのアラートを消してから行う
      # 投稿1を投稿したユーザーでログインする
       visit new_user_session_path
       fill_in 'Email', with: @post1.user.email
