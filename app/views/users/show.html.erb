@@ -6,6 +6,19 @@
     
 
     <p class="lead"><%= @user.profile %></p>
+
+    <% if current_user.id != @user.id %>
+      <%= render 'follow_form' %>
+    <% end %>
+
+    <%= @user.follow_count %>
+    <%= link_to "フォロー", {controller: :users,action: :follow_list,user_id: @user.id}, method: :get %>
+    <%= @user.followers_count %>
+    <%= link_to "フォロワー", {controller: :users,action: :follower_list,user_id: @user.id}, method: :get %>
+
+    
+
+
   </div>
 </div>
 
@@ -13,7 +26,12 @@
   <%= link_to "戻る", root_path %>
 </button>
 
+
+
+
 <div class="row row-cols md-3">
 
 <%= render partial: 'posts/post', collection: @user.posts.order("created_at DESC") %>
+
+
 

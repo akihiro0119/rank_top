@@ -68,3 +68,9 @@ gem 'jquery-rails'
 gem 'jquery-turbolinks'
 
 gem 'ransack'
+<<<<<<< Updated upstream
+=======
+
+gem "acts_as_follower", github: "tcocca/acts_as_follower"
+
+>>>>>>> Stashed changes
