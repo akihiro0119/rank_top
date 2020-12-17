@@ -6,7 +6,7 @@ class Post < ApplicationRecord
   def like_user(user_id)
     likes.find_by(user_id: user_id)
   end
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   has_many  :post_tag_relations, dependent: :destroy
   has_many  :tags, through: :post_tag_relations
