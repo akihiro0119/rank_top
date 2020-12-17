@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/tcocca/acts_as_follower.git
+  revision: c5ac7b9601c4af01eb4d9112330b27be4d694ecc
+  specs:
+    acts_as_follower (0.2.1)
+      activerecord (>= 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -83,7 +90,15 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    diff-lcs (1.4.4)
     erubi (1.10.0)
+    factory_bot (6.1.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.1.0)
+      factory_bot (~> 6.1.0)
+      railties (>= 5.0.0)
+    faker (2.15.1)
+      i18n (>= 1.6, < 2)
     ffi (1.13.1)
     font-awesome-sass (5.15.1)
       sassc (>= 1.11)
@@ -181,6 +196,23 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.4)
+    rspec-core (3.10.0)
+      rspec-support (~> 3.10.0)
+    rspec-expectations (3.10.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.10.0)
+    rspec-mocks (3.10.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.10.0)
+    rspec-rails (4.0.1)
+      actionpack (>= 4.2)
+      activesupport (>= 4.2)
+      railties (>= 4.2)
+      rspec-core (~> 3.9)
+      rspec-expectations (~> 3.9)
+      rspec-mocks (~> 3.9)
+      rspec-support (~> 3.9)
+    rspec-support (3.10.0)
     rubocop (1.6.0)
       parallel (~> 1.10)
       parser (>= 2.7.1.5)
@@ -259,10 +291,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_follower!
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
   devise
+  factory_bot_rails
+  faker
   font-awesome-sass
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
@@ -275,6 +310,7 @@ DEPENDENCIES
   puma (~> 3.11)
   rails (~> 6.0.0)
   ransack
+  rspec-rails (~> 4.0.0)
   rubocop
   sass-rails (~> 5)
   selenium-webdriver

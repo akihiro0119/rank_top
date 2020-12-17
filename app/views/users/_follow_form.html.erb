@@ -1,0 +1,7 @@
+<div id="follow_form">
+  <% if current_user.following? @user %>
+    <%= button_to "フォローを外す", {controller: :users,action: :unfollow,user_id: @user.id}, method: :put, class:"btn btn-outline-danger" %>
+  <% else %>
+    <%= button_to "フォロー", {controller: :users,action: :follow,user_id: @user.id}, method: :put, class:"btn btn-outline-primary" %>
+  <% end %>
+</div>

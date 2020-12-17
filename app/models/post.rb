@@ -6,17 +6,18 @@ class Post < ApplicationRecord
   def like_user(user_id)
     likes.find_by(user_id: user_id)
   end
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   has_many  :post_tag_relations, dependent: :destroy
   has_many  :tags, through: :post_tag_relations
 
+  with_options presence: true do
 
-
-validates :title, presence: true
-validates :rank1, presence: true
-validates :rank2, presence: true
-validates :rank3, presence: true
+    validates :title, length: { maximum: 40 }
+    validates :rank1, length: { maximum: 40 }
+    validates :rank2, length: { maximum: 40 }
+    validates :rank3, length: { maximum: 40 }
+  end
 
 
 

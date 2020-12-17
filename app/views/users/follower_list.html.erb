@@ -4,5 +4,7 @@
   <p>
   <%= user.profile %>
   </p>
+
   <%= render partial: 'posts/post', collection: @user.posts.order("created_at DESC").limit(2) %>
+
 <% end %>
