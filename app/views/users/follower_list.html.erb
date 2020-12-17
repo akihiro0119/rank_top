@@ -1,0 +1,8 @@
+<% @user.followers.each do |user| %>
+  <%= user.name %>
+  <%= link_to '詳細', user_path(user) %>
+  <p>
+  <%= user.profile %>
+  </p>
+  <%= render partial: 'posts/post', collection: @user.posts.order("created_at DESC").limit(2) %>
+<% end %>
