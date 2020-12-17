@@ -72,7 +72,8 @@ gem 'jquery-turbolinks'
 
 gem 'ransack'
 
-
 gem "acts_as_follower", github: "tcocca/acts_as_follower"
+
+gem 'carrierwave'
 
 

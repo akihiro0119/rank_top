@@ -29,6 +29,11 @@
           <%= f.text_area :profile, class: "form-control", placeholder:"プロフィールを入力してください" %>
         </div>
 
+        <div class="field">
+          <%= f.label :image %><br/>
+          <%= f.file_field :image %>
+        </div>
+
       <div class="text-center">
         <%= f.submit "アカウントを作成", class: "btn submitBtn" %>
       </div>
