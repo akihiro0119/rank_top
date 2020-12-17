@@ -12,21 +12,17 @@ class Post < ApplicationRecord
   has_many  :tags, through: :post_tag_relations
 
   with_options presence: true do
-
     validates :title, length: { maximum: 40 }
     validates :rank1, length: { maximum: 40 }
     validates :rank2, length: { maximum: 40 }
     validates :rank3, length: { maximum: 40 }
   end
 
-
-
   def self.search(search)
-    if search != ""
+    if search != ''
       Post.where('title LIKE(?)', "%#{search}%")
     else
       Post.all
     end
   end
-  
 end

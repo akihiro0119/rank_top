@@ -11,8 +11,7 @@
   <div class="card d-flex justify-content-around m-5" style="width: auto; heigth: auto;">
   <div class="card-body border border-primary">
   
-  
-    <%= image_tag post.image, :width => '280', :height => '280'  if post.image.attached? %>
+  <img src=<%= post.user.image %>  class = "icon_image">
     
     
       <h4 class="card-title"><%= post.title %></h4>
@@ -20,21 +19,24 @@
       ２位<p class="card-text"><%= post.rank2 %></p>
       ３位<p class="card-text"><%= post.rank3 %></p>
 
+      <%= image_tag post.image, :width => '280', :height => '280'  if post.image.attached? %>
+
              
     
-
+<p>
     <div class="btn-group">
           <button type="button" class="btn btn-5m btn-outline-secondary">
             <%= link_to '詳細', post_path(post.id) , method: :get %></button>
           <button type="button" class="btn btn-5m btn-outline-secondary">
             <%=link_to post.user.name, user_path(post.user.id)%></button>
     </div>
+</p>
 
-
+<p>
     <div id="likes_buttons_<%= post.id %>">
       <%= render partial: 'likes/like', locals: { post: post} %>
     </div>
-
+</p>
 
 
     

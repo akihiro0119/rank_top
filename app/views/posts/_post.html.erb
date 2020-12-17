@@ -1,16 +1,13 @@
 <div class="card d-flex justify-content-around m-5" style="width: 30rem; heigth: 100rem;">
   <div class="card-body">
   
-  
     <%= image_tag post.image, :width => '280', :height => '280'if post.image.attached? %> 
-    
     
       <h4 class="card-title"><%= post.title %></h4>
       １位<p class="card-text"><%= post.rank1 %></p>
       ２位<p class="card-text"><%= post.rank2 %></p>
       ３位<p class="card-text"><%= post.rank3 %></p>
     
-
     <div class="btn-group">
       <button type="button" class="btn btn-sm btn-outline-secondary">
         <%= link_to '詳細', post_path(post.id) , method: :get %></button>
@@ -22,7 +19,6 @@
     <span class= 'badge badge-primary'><%= tag.tag_name %></span>
     <% end %>
 
-    
       <p class="card-text">
         <small class="text-muted"><%= post.updated_at %>
         </small>

@@ -1,9 +1,18 @@
 
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4"><%= @user.name %>さんのページです</h1>
 
-    
+  <img src=<%= @user.image %>  class = "icon_image">
+    <h1 class="display-4">
+    <%= @user.name %>さんのページです</h1>
+
+    <% if user_signed_in? && current_user.id %>
+
+    <button type="button" class="btn btn-sm btn-outline-secondary">
+      <%= link_to "プロフィールを変更", edit_user_registration_path %>
+    </button>
+
+    <% end %>
 
     <p class="lead"><%= @user.profile %></p>
 
@@ -16,13 +25,10 @@
     <%= @user.followers_count %>
     <%= link_to "フォロワー", {controller: :users,action: :follower_list,user_id: @user.id}, method: :get %>
 
-    
-
-
   </div>
 </div>
 
-<button type="button" class="btn btn-outline-secondary">
+<button type="button" class="ml-3 btn btn-outline-secondary">
   <%= link_to "戻る", root_path %>
 </button>
 
