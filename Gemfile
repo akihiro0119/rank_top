@@ -76,4 +76,6 @@ gem "acts_as_follower", github: "tcocca/acts_as_follower"
 
 gem 'carrierwave'
 
+gem "aws-sdk-s3", require: false
+
 
