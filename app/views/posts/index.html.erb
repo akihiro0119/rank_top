@@ -12,6 +12,7 @@
   <div class="card-body border border-primary">
   
   <img src=<%= post.user.image %>  class = "icon_image">
+    <b><%=link_to post.user.name, user_path(post.user.id)%></b>
     
     
       <h4 class="card-title"><%= post.title %></h4>
@@ -27,8 +28,6 @@
     <div class="btn-group">
           <button type="button" class="btn btn-5m btn-outline-secondary">
             <%= link_to '詳細', post_path(post.id) , method: :get %></button>
-          <button type="button" class="btn btn-5m btn-outline-secondary">
-            <%=link_to post.user.name, user_path(post.user.id)%></button>
     </div>
 </p>
 

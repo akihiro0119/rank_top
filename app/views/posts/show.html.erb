@@ -45,6 +45,7 @@
     </div>
 </div>
 
+
 <br>
 <% if current_user %>
       <%= form_with(model: [@post, @comment], local: true) do |form| %>
@@ -55,8 +56,12 @@
 <% else %>
       <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
 <% end %>
-    <div>
-      <h4>＜コメント一覧＞</h4>
+</div>
+
+
+
+<h4>＜コメント一覧＞</h4>
+
 <% if @comments %>
         <% @comments.each do |comment| %>
           <p>
@@ -65,6 +70,8 @@
           </p>
         <% end %>
 <% end %>
+
+
 
 
 

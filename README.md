@@ -15,8 +15,8 @@ Email user@com
 Password user00
 
 Basic認証 
-ID
-Pass
+ID ao1x19
+Pass 0119
 
 ### 作成目的
 
@@ -47,22 +47,22 @@ Pass
 
 **Gem**
 
-ユーザー管理に使用  
+##### ユーザー管理に使用  
  ***
  devise
  ***  
 
-画像を使用する際に使用  
+##### 画像を使用する際に使用  
 ***
 mini_magick,image_processing,carrierwave
 ***  
 
-フォロー機能実装に使用  
+##### フォロー機能実装に使用  
 ***
 acts_as_follower
 ***  
 
-デザイン面で使用
+##### デザイン面で使用
 ***
 font-awesome-sass
 ***
