@@ -12,6 +12,8 @@ class User < ApplicationRecord
   acts_as_followable
   acts_as_follower
 
+  
+  has_one_attached :image
   mount_uploader :image, ImageUploader
 
   with_options presence: true do

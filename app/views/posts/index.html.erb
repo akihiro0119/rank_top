@@ -11,7 +11,7 @@
   <div class="card d-flex justify-content-around m-5" style="width: auto; heigth: auto;">
   <div class="card-body border border-primary">
   
-  <img src=<%= post.user.image %>  class = "icon_image">
+  <%= image_tag post.user.image.to_s , class:"icon_image"%>
     <b><%=link_to post.user.name, user_path(post.user.id)%></b>
     
     

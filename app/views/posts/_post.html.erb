@@ -3,7 +3,7 @@
   <div class="card-body">
 
   
-  <img src=<%= post.user.image  %> class = "icon_image">
+  <%= image_tag @user.image.to_s , class:"icon_image"%>
   
       <h4 class="card-title"><%= post.title %></h4>
       １位<p class="card-text"><%= post.rank1 %></p>

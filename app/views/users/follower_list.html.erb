@@ -7,16 +7,13 @@
   </h4>
 
   <p>
-    <img src=<%= user.image %>  class = "icon_image">
+    <%= image_tag user.image.to_s , class:"icon_image"%>
   </p>
 
   <p class="ml-2">
   <%= link_to '詳細', user_path(user) %>
   </p>
 
-  <p class="ml-2">
-  <%= user.profile %>
-  </p>
 
   <%= render partial: 'posts/post', collection: @user.posts.order("created_at DESC").limit(3) %>
 </div>

@@ -1,7 +1,7 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
 
-  <img src=<%= @user.image %>  class = "icon_image">
+  <%= image_tag @user.image.to_s , class:"icon_image"%>
     <h1 class="display-4">
     <%= @user.name %>さんのページです</h1>
 
