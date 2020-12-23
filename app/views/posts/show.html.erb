@@ -1,5 +1,7 @@
 <div class="card mb-3">
   <div class="card-body">
+
+  <%= image_tag @post.user.image.to_s , class:"icon_image"%>
   
     <h5 class="card-title"><%= @post.title %></h5>
     1位<p class="card-text"><%= @post.rank1 %></p>

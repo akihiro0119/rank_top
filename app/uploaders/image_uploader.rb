@@ -1,5 +1,9 @@
 class ImageUploader < CarrierWave::Uploader::Base
+  # Include RMagick or MiniMagick support:
+  # include CarrierWave::RMagick
+  # include CarrierWave::MiniMagick
 
+  # Choose what kind of storage to use for this uploader:
   if Rails.env.development?
     storage :file
   elsif Rails.env.test?
@@ -7,12 +11,19 @@ class ImageUploader < CarrierWave::Uploader::Base
   else
     storage :fog
   end
-  
-  # Include RMagick or MiniMagick support:
-  # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
 
-  # Choose what kind of storage to use for this uploader:
+  def store_dir
+    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  end
+
+  def extension_whitelist
+    %w(png jpg)
+  end
+
+  def filename
+    original_filename if original_filename
+  end
+end
   # storage :fog
 
   # Override the directory where uploaded files will be stored.
@@ -29,20 +40,12 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
 
-  def extension_whitelist
-    %w(png jpg)
-  end
-
   # Process files as they are uploaded:
   # process scale: [200, 300]
   #
   # def scale(width, height)
   #   # do something
   # end
-  
-  def filename
-    original_filename if original_filename
-  end
 
   # Create different versions of your uploaded files:
   # version :thumb do
@@ -60,4 +63,4 @@ class ImageUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-end
+
