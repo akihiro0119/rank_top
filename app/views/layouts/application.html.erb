@@ -23,8 +23,8 @@
         <h1><%= link_to "Rank Top",root_path, method: :get %></h1>
     </div>
 
-    <h3><%=link_to "TOPページへ",root_path, class:"nav-link active"  %>
-    </h3>
+    <h1><%=link_to "TOPページへ",root_path, class:"btn btn-outline-primary ml-3"  %>
+    </h1>
 
     <%  if current_page?(root_path) %>
       <%= render 'partial/header' %>

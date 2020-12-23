@@ -63,7 +63,7 @@
       ２位<p class="card-text"><%= post.rank2 %></p>
       ３位<p class="card-text"><%= post.rank3 %></p>
 
-      <%= image_tag post.image, :width => '280', :height => '280'  if post.image.attached? %>
+      <%= image_tag post.image, :height => '280' if post.image.attached? %>
 
              
     
@@ -71,8 +71,6 @@
     <div class="btn-group">
           <button type="button" class="btn btn-5m btn-outline-secondary">
             <%= link_to '詳細', post_path(post.id) , method: :get %></button>
-          <button type="button" class="btn btn-5m btn-outline-secondary">
-            <%=link_to post.user.name, user_path(post.user.id)%></button>
     </div>
 </p>
 

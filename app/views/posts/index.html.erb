@@ -1,7 +1,7 @@
 <%= render 'posts/search' %>
 
 <%= form_with(url: search_posts_path, local: true, method: :get, class: "search-form") do |form| %>
-  <%= form.text_field :keyword, placeholder: "投稿を検索する", class: "search-input" %>
+  <%= form.text_field :keyword, placeholder: "投稿を検索する", class: "search-input ml-3" %>
   <%= form.submit "検索", class: "search-btn" %>
 <% end %>
 
@@ -20,7 +20,7 @@
       ２位<p class="card-text"><%= post.rank2 %></p>
       ３位<p class="card-text"><%= post.rank3 %></p>
 
-      <%= image_tag post.image, :width => '280', :height => '280'  if post.image.attached? %>
+      <%= image_tag post.image, :height => '280'  if post.image.attached? %>
 
              
     
