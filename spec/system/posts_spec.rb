@@ -1,5 +1,11 @@
 require 'rails_helper'
 
+def basic_pass(path)
+  username = ENV['BASIC_AUTH_USER']
+  password = ENV['BASIC_AUTH_PASSWORD']
+  visit "http://#{username}:#{password}@#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}#{path}"
+end
+
 RSpec.describe '投稿', type: :system do
   before do
     @user = FactoryBot.create(:user)
@@ -11,6 +17,7 @@ RSpec.describe '投稿', type: :system do
   context '投稿ができるとき' do
     it 'ログインしたユーザーは新規投稿できる' do
       # ログインする
+      basic_pass new_user_session_path
       visit new_user_session_path
       fill_in 'Email', with: @user.email
       fill_in 'Password', with: @user.password
@@ -25,6 +32,8 @@ RSpec.describe '投稿', type: :system do
       fill_in 'post_rank1', with: @post_rank1
       fill_in 'post_rank2', with: @post_rank2
       fill_in 'post_rank3', with: @post_rank3
+      # タグの情報や画像を入力する
+
       # 送信するとPostモデルのカウントが1上がることを確認する
       expect  do
         find('input[name="commit"]').click
@@ -35,6 +44,7 @@ RSpec.describe '投稿', type: :system do
       expect(page).to have_content(@post_title)
     end
   end
+
   context '投稿ができないとき' do
     it 'ログインしていないと新規投稿ページに遷移できない' do
       # トップページに遷移する
@@ -53,6 +63,7 @@ RSpec.describe '投稿編集', type: :system do
   context '投稿編集ができるとき' do
     it 'ログインしたユーザーは自分が投稿した投稿の編集ができる' do
       # 投稿1を投稿したユーザーでログインする
+      basic_pass new_user_session_path
       visit new_user_session_path
       fill_in 'Email', with: @post1.user.email
       fill_in 'Password', with: @post1.user.password
@@ -97,6 +108,7 @@ RSpec.describe '投稿編集', type: :system do
   context '投稿編集ができないとき' do
     it 'ログインしたユーザーは自分以外が投稿した投稿の編集画面には遷移できない' do
       # 投稿1を投稿したユーザーでログインする
+      basic_pass new_user_session_path
       visit new_user_session_path
       fill_in 'Email', with: @post1.user.email
       fill_in 'Password', with: @post1.user.password
@@ -125,6 +137,7 @@ RSpec.describe '投稿削除', type: :system do
     it 'ログインしたユーザーは自らが投稿した投稿の削除ができる' do
       # このテストを行うときは削除ボタンのアラートを消してから行う
       # 投稿1を投稿したユーザーでログインする
+      basic_pass new_user_session_path
       visit new_user_session_path
       fill_in 'Email', with: @post1.user.email
       fill_in 'Password', with: @post1.user.password
@@ -134,6 +147,7 @@ RSpec.describe '投稿削除', type: :system do
       visit post_path(@post1)
       # 投稿を削除するとレコードの数が1減ることを確認する
       click_button '削除する'
+      page.driver.browser.switch_to.alert.accept
       change { Post.count }.by(-1)
       # トップページには投稿1の内容が存在しないことを確認する
       expect(page).to have_no_content(@post1.title.to_s)
@@ -146,6 +160,7 @@ RSpec.describe '投稿削除', type: :system do
   context '投稿削除ができないとき' do
     it 'ログインしたユーザーは自分以外が投稿した投稿の削除ができない' do
       # 投稿1を投稿したユーザーでログインする
+      basic_pass new_user_session_path
       visit new_user_session_path
       fill_in 'Email', with: @post1.user.email
       fill_in 'Password', with: @post1.user.password
@@ -172,6 +187,7 @@ RSpec.describe '投稿詳細', type: :system do
   end
   it 'ログインしたユーザーは投稿詳細ページに遷移してコメント投稿欄が表示される' do
     # ログインする
+    basic_pass new_user_session_path
     visit new_user_session_path
     fill_in 'Email', with: @post.user.email
     fill_in 'Password', with: @post.user.password
