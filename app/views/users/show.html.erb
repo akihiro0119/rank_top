@@ -5,7 +5,7 @@
     <h1 class="display-4">
     <%= @user.name %>さんのページです</h1>
 
-    <% if user_signed_in? && current_user.id %>
+    <% if user_signed_in? && current_user.id == @user.id %>
 
     <button type="button" class="btn btn-sm btn-outline-secondary">
       <%= link_to "プロフィールを変更", edit_user_registration_path %>

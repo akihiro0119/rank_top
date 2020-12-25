@@ -32,8 +32,7 @@ RSpec.describe '投稿', type: :system do
       fill_in 'post_rank1', with: @post_rank1
       fill_in 'post_rank2', with: @post_rank2
       fill_in 'post_rank3', with: @post_rank3
-      # タグの情報や画像を入力する
-
+      page.check('post_tag_ids_7')
       # 送信するとPostモデルのカウントが1上がることを確認する
       expect  do
         find('input[name="commit"]').click
@@ -91,6 +90,7 @@ RSpec.describe '投稿編集', type: :system do
       fill_in 'post_rank1', with: @post1.rank1.to_s
       fill_in 'post_rank2', with: @post1.rank2.to_s
       fill_in 'post_rank3', with: @post1.rank3.to_s
+      page.check('post_tag_ids_7')
       # 編集してもPostモデルのカウントは変わらないことを確認する
       expect  do
         find('input[name="commit"]').click
@@ -103,6 +103,7 @@ RSpec.describe '投稿編集', type: :system do
       expect(page).to have_content(@post1.rank1.to_s)
       expect(page).to have_content(@post1.rank2.to_s)
       expect(page).to have_content(@post1.rank3.to_s)
+      expect(page).to have_content('飲食')
     end
   end
   context '投稿編集ができないとき' do
