@@ -209,8 +209,8 @@ RSpec.describe 'フォロー機能', type: :system do
     @user2 = FactoryBot.create(:user)
   end
 
-  context '正しくフォローできる場合' do
-    it 'ユーザー１でログインし、ユーザー２をフォローし、双方のリストからユーザー１を確認できる' do
+  context '正しくフォロー、フォロー解除できる場合' do
+    it 'ユーザー１でログインし、ユーザー２をフォローし、双方のリストから格ユーザーを確認できる' do
       # Basic認証を通過し、ログインページに移動する
       basic_pass new_user_session_path
       visit new_user_session_path
@@ -222,56 +222,44 @@ RSpec.describe 'フォロー機能', type: :system do
       # トップページへ遷移することを確認する
       expect(current_path).to eq root_path
       # ユーザー2のユーザーページへ遷移する
-      # ユーザー2をフォローするボタンを押す
-      # フォロワーの数字が変動しているのを確認する
+      visit user_path(@user2)
+      # フォローボタンをクリック
+      click_button 'フォロー'
       # フォロワーをクリック
+      click_on('フォロワー')
       # ユーザー１を確認できる
+      expect(page).to have_content(@user1.name)
       # ユーザー１のユーザーページへ遷移する
+      visit user_path(@user1)
       # ユーザー１のフォローをクリック
+      click_on('フォロー')
       # ユーザー２を確認できる
-    end
-  end
-
-  context 'フォローできない場合' do
-
-    it 'ログインしていないとフォローできなお' do
-
-    end
-  end
-
-  context '正しくフォロー解除できる場合' do
-    it 'ユーザー１でログインし、ユーザー２をフォローし、双方のリストからユーザー１を確認できる' do
-      # Basic認証を通過し、ログインページに移動する
-      basic_pass new_user_session_path
-      visit new_user_session_path
-      # 正しいユーザー1の情報を入力する
-      fill_in 'Email', with: @user1.email
-      fill_in 'Password', with: @user1.password
-      # ログインボタンを押す
-      find('input[name="commit"]').click
-      # トップページへ遷移することを確認する
-      expect(current_path).to eq root_path
-      # ユーザー2のユーザーページへ遷移する
-      # ユーザー2をフォローボタンを押す
-      # フォロワーの数字が変動しているのを確認する
-      # フォロワーをクリック
-      # ユーザー１を確認できる
-      # ユーザー１のユーザーページへ遷移する
-      # ユーザー１のフォローをクリック
-      # ユーザー２を確認できる
+      expect(page).to have_content(@user2.name)
       # ユーザー２のユーザーページへ遷移
+      visit user_path(@user2)
       # ユーザー２のフォローを外すボタンをクリック
-      # ユーザー２のフォロワーが変動したのを確認
+      click_button 'フォローを外す'
       # ユーザー２のフォロワーをクリックし、ユーザー１が居ないことを確認
+      click_on('フォロワー')
+      expect(page).to have_no_content(@user1.name)
       # ユーザー１のユーザーページへ遷移し、フォローをクリック
+      visit user_path(@user1)
+      click_on('フォロー')
       # ユーザー２が居ないことを確認
+      expect(page).to have_no_content(@user2.name)
     end
   end
 
-  context 'フォロー解除できない場合' do
+  context '正しく機能しない場合' do
 
-    it 'ログインしていないとフォロー解除できない' do
-
+    it 'ログインしていないとフォローできない' do
+      # Basic認証を通過後、トップページへ
+      basic_pass new_user_session_path
+      visit root_path
+      # ユーザー２の詳細画面へ
+      visit user_path(@user2)
+      # 画面にフォローボタンがないことを確認
+      expect(page).to have_no_button 'フォロー'
     end
   end
 end
