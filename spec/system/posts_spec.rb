@@ -136,7 +136,6 @@ RSpec.describe '投稿削除', type: :system do
   end
   context '投稿削除ができるとき' do
     it 'ログインしたユーザーは自らが投稿した投稿の削除ができる' do
-      # このテストを行うときは削除ボタンのアラートを消してから行う
       # 投稿1を投稿したユーザーでログインする
       basic_pass new_user_session_path
       visit new_user_session_path
@@ -218,5 +217,63 @@ RSpec.describe '投稿詳細', type: :system do
     expect(page).to have_no_selector 'form'
     # 「コメントの投稿には新規登録/ログインが必要です」が表示されていることを確認する
     expect(page).to have_content 'コメントの投稿には新規登録/ログインが必要です'
+  end
+end
+
+RSpec.describe '投稿検索', type: :system do
+  before do
+    @post1 = FactoryBot.create(:post)
+    @post2 = FactoryBot.create(:post)
+  end
+  context '正しく投稿が検索できるとき' do
+    it 'タイトルで投稿が検索できる' do
+
+      # 投稿1を投稿したユーザーでログインする
+      basic_pass new_user_session_path
+      visit new_user_session_path
+      fill_in 'Email', with: @post1.user.email
+      fill_in 'Password', with: @post1.user.password
+      find('input[name=commit').click
+      expect(current_path).to eq root_path
+      # 検索フォームにpost1のタイトルを入力する
+      fill_in 'keyword', with: @post1.title
+      # 検索ボタンを押すとpost1が確認できる
+      find('input[name=commit').click
+      expect(page).to have_content(@post1.rank1.to_s)
+      # トップページに戻る
+      visit root_path
+      # 検索フォームにpost2のタイトルを入力する
+      fill_in 'keyword', with: @post2.title
+      # 検索ボタンを押すとpost1が確認できない
+      find('input[name=commit').click
+      expect(page).to have_no_content(@post1)
+    end
+  
+    it 'カテゴリーで投稿を検索できる' do
+
+      # 投稿1を投稿したユーザーでログインする
+      basic_pass new_user_session_path
+      visit new_user_session_path
+      fill_in 'Email', with: @post1.user.email
+      fill_in 'Password', with: @post1.user.password
+      find('input[name=commit').click
+      expect(current_path).to eq root_path
+      # 投稿１にカテゴリー"アーティスト"を追加
+      visit post_path(@post1)
+      click_button '編集する'
+      page.check('post_tag_ids_1')
+      # 編集をしても投稿モデルの数が変わらないことを確認
+      expect  do
+        find('input[name="commit"]').click
+      end.to change { Post.count }.by(0)
+      # 検索フォームの"アーティスト"を選択
+      select 'アーティスト', from: 'tag_id'
+      # post1が確認できる
+      expect(page).to have_content(@post1.title)
+      # カテゴリー検索フォームに"その他"カテゴリーを入力する
+      select 'その他', from: 'tag_id'
+      # post1が確認できない
+      expect(page).to have_no_content(@post1.title)
+    end
   end
 end

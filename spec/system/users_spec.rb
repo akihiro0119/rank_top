@@ -1,14 +1,10 @@
 require 'rails_helper'
 
-  
-
 def basic_pass(path)
   username = ENV['BASIC_AUTH_USER']
   password = ENV['BASIC_AUTH_PASSWORD']
   visit "http://#{username}:#{password}@#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}#{path}"
 end
-
-
 
 RSpec.describe 'ユーザー新規登録', type: :system do
   before do
@@ -206,6 +202,78 @@ RSpec.describe 'ユーザー情報編集', type: :system do
     end
   end
 end
-      
+
+RSpec.describe 'フォロー機能', type: :system do
+  before do
+    @user1 = FactoryBot.create(:user)
+    @user2 = FactoryBot.create(:user)
+  end
+
+  context '正しくフォローできる場合' do
+    it 'ユーザー１でログインし、ユーザー２をフォローし、双方のリストからユーザー１を確認できる' do
+      # Basic認証を通過し、ログインページに移動する
+      basic_pass new_user_session_path
+      visit new_user_session_path
+      # 正しいユーザー1の情報を入力する
+      fill_in 'Email', with: @user1.email
+      fill_in 'Password', with: @user1.password
+      # ログインボタンを押す
+      find('input[name="commit"]').click
+      # トップページへ遷移することを確認する
+      expect(current_path).to eq root_path
+      # ユーザー2のユーザーページへ遷移する
+      # ユーザー2をフォローするボタンを押す
+      # フォロワーの数字が変動しているのを確認する
+      # フォロワーをクリック
+      # ユーザー１を確認できる
+      # ユーザー１のユーザーページへ遷移する
+      # ユーザー１のフォローをクリック
+      # ユーザー２を確認できる
+    end
+  end
+
+  context 'フォローできない場合' do
+
+    it 'ログインしていないとフォローできなお' do
+
+    end
+  end
+
+  context '正しくフォロー解除できる場合' do
+    it 'ユーザー１でログインし、ユーザー２をフォローし、双方のリストからユーザー１を確認できる' do
+      # Basic認証を通過し、ログインページに移動する
+      basic_pass new_user_session_path
+      visit new_user_session_path
+      # 正しいユーザー1の情報を入力する
+      fill_in 'Email', with: @user1.email
+      fill_in 'Password', with: @user1.password
+      # ログインボタンを押す
+      find('input[name="commit"]').click
+      # トップページへ遷移することを確認する
+      expect(current_path).to eq root_path
+      # ユーザー2のユーザーページへ遷移する
+      # ユーザー2をフォローボタンを押す
+      # フォロワーの数字が変動しているのを確認する
+      # フォロワーをクリック
+      # ユーザー１を確認できる
+      # ユーザー１のユーザーページへ遷移する
+      # ユーザー１のフォローをクリック
+      # ユーザー２を確認できる
+      # ユーザー２のユーザーページへ遷移
+      # ユーザー２のフォローを外すボタンをクリック
+      # ユーザー２のフォロワーが変動したのを確認
+      # ユーザー２のフォロワーをクリックし、ユーザー１が居ないことを確認
+      # ユーザー１のユーザーページへ遷移し、フォローをクリック
+      # ユーザー２が居ないことを確認
+    end
+  end
+
+  context 'フォロー解除できない場合' do
+
+    it 'ログインしていないとフォロー解除できない' do
+
+    end
+  end
+end
 
 

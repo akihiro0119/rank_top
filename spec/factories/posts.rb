@@ -10,7 +10,7 @@ FactoryBot.define do
     likes_count       { 0 }
     created_at        { '1930-02-01' }
     updated_at        { '1930-02-01' }
-    tag_ids             {Faker::Number.between(from: 1, to: 11) }
+    tag_ids             {Faker::Number.between(from: 1, to: 10) }
 
   end
 end
