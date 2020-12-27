@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :post do
-
     association :user
 
     title             { Faker::Name.last_name }
@@ -10,7 +9,6 @@ FactoryBot.define do
     likes_count       { 0 }
     created_at        { '1930-02-01' }
     updated_at        { '1930-02-01' }
-    tag_ids             {Faker::Number.between(from: 1, to: 10) }
-
+    tag_ids             { Faker::Number.between(from: 1, to: 10) }
   end
 end

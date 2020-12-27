@@ -30,7 +30,7 @@ RSpec.describe '投稿', type: :system do
       fill_in 'post_rank3', with: @post_rank3
       page.check('post_tag_ids_7')
       # 送信するとPostモデルのカウントが1上がることを確認する
-      expect  do
+      expect do
         find('input[name="commit"]').click
       end.to change { Post.count }.by(1)
       # トップページに遷移する
@@ -84,7 +84,7 @@ RSpec.describe '投稿編集', type: :system do
       fill_in 'post_rank3', with: @post1.rank3.to_s
       page.check('post_tag_ids_7')
       # 編集してもPostモデルのカウントは変わらないことを確認する
-      expect  do
+      expect do
         find('input[name="commit"]').click
       end.to change { Post.count }.by(0)
       # トップページに遷移する
@@ -199,7 +199,6 @@ RSpec.describe '投稿検索', type: :system do
   end
   context '正しく投稿が検索できるとき' do
     it 'タイトルで投稿が検索できる' do
-
       # 投稿1を投稿したユーザーでログインする
       basic_pass new_user_session_path
       visit new_user_session_path
@@ -220,9 +219,8 @@ RSpec.describe '投稿検索', type: :system do
       find('input[name=commit').click
       expect(page).to have_no_content(@post1)
     end
-  
-    it 'カテゴリーで投稿を検索できる' do
 
+    it 'カテゴリーで投稿を検索できる' do
       # 投稿1を投稿したユーザーでログインする
       basic_pass new_user_session_path
       visit new_user_session_path
@@ -235,7 +233,7 @@ RSpec.describe '投稿検索', type: :system do
       click_button '編集する'
       page.check('post_tag_ids_1')
       # 編集をしても投稿モデルの数が変わらないことを確認
-      expect  do
+      expect do
         find('input[name="commit"]').click
       end.to change { Post.count }.by(0)
       # 検索フォームの"アーティスト"を選択
@@ -255,7 +253,6 @@ RSpec.describe 'いいね機能', type: :system do
     @post = FactoryBot.create(:post)
   end
   context '正しくいいねができる場合', js: true do
-
     it '投稿に対していいねが出来、それを解除することができる' do
       # 投稿1を投稿したユーザーでログインする
       basic_pass new_user_session_path
@@ -274,4 +271,3 @@ RSpec.describe 'いいね機能', type: :system do
     end
   end
 end
-

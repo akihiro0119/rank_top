@@ -17,11 +17,11 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def extension_whitelist
-    %w(png jpg)
+    %w[png jpg]
   end
 
   def filename
-    original_filename if original_filename
+    original_filename
   end
   # storage :fog
 

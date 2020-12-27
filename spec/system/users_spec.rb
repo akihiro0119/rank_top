@@ -26,7 +26,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       fill_in 'Profile', with: @user.profile
       FactoryBot.create(:user, :with_picture)
       # サインアップボタンを押すとユーザーモデルのカウントが1上がることを確認する
-      expect  do
+      expect do
         find('input[name="commit"]').click
       end.to change { User.count }.by(1)
       # トップページへ遷移する
@@ -53,7 +53,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       fill_in 'Profile', with: ''
       FactoryBot.create(:user, :with_picture)
       # サインアップボタンを押してもユーザーモデルのカウントは上がらないことを確認する
-      expect  do
+      expect do
         find('input[name="commit"]').click
       end.to change { User.count }.by(0)
       # 新規登録ページへ戻されることを確認する
@@ -126,7 +126,7 @@ RSpec.describe 'ユーザー情報編集', type: :system do
       find('input[name="commit"]').click
       # トップページへ遷移することを確認する
       expect(current_path).to eq root_path
-       # ユーザーページへ遷移する
+      # ユーザーページへ遷移する
       visit user_path(@user1)
       # 編集するボタンをクリック
       click_button 'プロフィールを変更'
@@ -142,7 +142,7 @@ RSpec.describe 'ユーザー情報編集', type: :system do
       fill_in 'user_profile', with: @user1.profile
       FactoryBot.create(:user, :with_picture)
       # 編集してもUserモデルのカウントは変わらないことを確認する
-      expect  do
+      expect do
         find('input[name="commit"]').click
       end.to change { User.count }.by(0)
       # ユーザーページに遷移していることを確認する
@@ -155,7 +155,6 @@ RSpec.describe 'ユーザー情報編集', type: :system do
   end
 
   context 'ユーザー情報編集ができないとき' do
-
     it 'ユーザー１はユーザー２の情報を変更できない' do
       # ユーザー１でログインする
       basic_pass new_user_session_path
@@ -171,13 +170,13 @@ RSpec.describe 'ユーザー情報編集', type: :system do
     end
 
     it 'ユーザー情報を正しく入力しないと変更できない' do
-       # ユーザー１でログインする
-       basic_pass new_user_session_path
-       visit new_user_session_path
-       fill_in 'Email', with: @user1.email
-       fill_in 'Password', with: @user1.password
-       find('input[name=commit').click
-       expect(current_path).to eq root_path
+      # ユーザー１でログインする
+      basic_pass new_user_session_path
+      visit new_user_session_path
+      fill_in 'Email', with: @user1.email
+      fill_in 'Password', with: @user1.password
+      find('input[name=commit').click
+      expect(current_path).to eq root_path
       # ユーザーページへ遷移する
       visit user_path(@user1)
       # 編集するボタンをクリック
@@ -194,7 +193,7 @@ RSpec.describe 'ユーザー情報編集', type: :system do
       fill_in 'user_profile', with: ''
       FactoryBot.create(:user, :with_picture)
       # ユーザーモデル数が変わっていないことを確認する
-      expect  do
+      expect do
         find('input[name="commit"]').click
       end.to change { User.count }.by(0)
       # ユーザー情報変更画面のままのことを確認する
@@ -251,7 +250,6 @@ RSpec.describe 'フォロー機能', type: :system do
   end
 
   context '正しく機能しない場合' do
-
     it 'ログインしていないとフォローできない' do
       # Basic認証を通過後、トップページへ
       basic_pass new_user_session_path
@@ -263,5 +261,3 @@ RSpec.describe 'フォロー機能', type: :system do
     end
   end
 end
-
-
