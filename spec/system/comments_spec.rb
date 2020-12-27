@@ -1,5 +1,11 @@
 require 'rails_helper'
 
+def basic_pass(path)
+  username = ENV['BASIC_AUTH_USER']
+  password = ENV['BASIC_AUTH_PASSWORD']
+  visit "http://#{username}:#{password}@#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}#{path}"
+end
+
 RSpec.describe 'コメント投稿', type: :system do
   before do
     @post = FactoryBot.create(:post)
@@ -8,11 +14,8 @@ RSpec.describe 'コメント投稿', type: :system do
   end
   it 'ログインしたユーザーはツイート詳細ページでコメント投稿できる' do
     # ログインする
-    visit new_user_session_path
-    fill_in 'Email', with: @user.email
-    fill_in 'Password', with: @user.password
-    find('input[name=commit').click
-    expect(current_path).to eq root_path
+    basic_pass new_user_session_path
+    sign_in(@post.user)
     # ツイート詳細ページに遷移する
     visit post_path(@post)
     # フォームに情報を入力する
