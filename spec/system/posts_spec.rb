@@ -151,10 +151,6 @@ RSpec.describe '投稿削除', type: :system do
       change { Post.count }.by(-1)
       # トップページには投稿1の内容が存在しないことを確認する
       expect(page).to have_no_content(@post1.title.to_s)
-      # トップページには投稿1の内容が存在しないことを確認する
-      expect(page).to have_no_content(@post1.rank1.to_s)
-      expect(page).to have_no_content(@post1.rank2.to_s)
-      expect(page).to have_no_content(@post1.rank3.to_s)
     end
   end
   context '投稿削除ができないとき' do
@@ -277,3 +273,29 @@ RSpec.describe '投稿検索', type: :system do
     end
   end
 end
+
+RSpec.describe 'いいね機能', type: :system do
+  before do
+    @post = FactoryBot.create(:post)
+  end
+  context '正しくいいねができる場合', js: true do
+
+    it '投稿に対していいねが出来、それを解除することができる' do
+      # 投稿1を投稿したユーザーでログインする
+      basic_pass new_user_session_path
+      visit new_user_session_path
+      fill_in 'Email', with: @post.user.email
+      fill_in 'Password', with: @post.user.password
+      find('input[name=commit').click
+      expect(current_path).to eq root_path
+      # 投稿１をお気に入り登録する
+      find('.far').click
+      expect(page).to have_css '.fas'
+      # 投稿１のお気に入りを解除する
+      visit root_path
+      find('.fas').click
+      expect(page).to have_css '.far'
+    end
+  end
+end
+

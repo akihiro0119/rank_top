@@ -1,9 +1,15 @@
 <% if user_signed_in? %>
     <% if post.like_user(current_user.id) %>
-        <p><span>お気に入り解除: <i class="fas fa-star"><%=link_to post.likes.count, post_likes_path(post.id), method: :delete, remote: true %></i></span>
+        <p><span>お気に入り解除: <%= link_to post_likes_path(post.id), remote:true, method: :delete do %>
+            <i class="fas fa-star"></i>
+          <% end %>
+          <%= post.likes.count %></span>
         </p>
     <% else %>
-        <p><span>お気に入り登録: <i class="far fa-star"><%=link_to post.likes.count, post_likes_path(post.id), method: :post, remote: true %></i></span>
+        <p>お気に入り登録: <span><%=link_to post_likes_path(post.id), remote: true, method: :post do %>
+        <i class="far fa-star"></i>
+        <% end %>
+        <%= post.likes.count %></span>
         </p>
     <% end %>
 <% else %>
