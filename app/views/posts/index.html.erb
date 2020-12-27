@@ -20,7 +20,7 @@
       ２位<p class="card-text"><%= post.rank2 %></p>
       ３位<p class="card-text"><%= post.rank3 %></p>
 
-      <%= image_tag post.image, :height => '280'  if post.image.attached? %>
+      <%= image_tag post.image,:width => '280', :height => '280'  if post.image.attached? %>
 
              
     
