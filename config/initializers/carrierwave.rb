@@ -1,18 +1,13 @@
-require 'carrierwave/storage/abstract'
-require 'carrierwave/storage/file'
-require 'carrierwave/storage/fog'
-
+unless Rails.env.development? || Rails.env.test?
   CarrierWave.configure do |config|
-    config.storage :fog
-    config.fog_provider = 'fog/aws'
-    config.fog_directory  = 'rank-top-32010'
+    
     config.fog_credentials = {
       provider: 'AWS',
-      aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-      aws_secret_access_key: ENV['AWS_ACCESS_KEY_ID'],
-      region: 'ap-northeast-1',
-      path_style: true
-
+      aws_access_key_id: ENV['AWS_ACCESS_KEY_ID']
+      aws_secret_access_key: ENV['AWS_ACCESS_KEY_ID']
+      region: 'ap-northeast-1'
     }
+    config.fog_directory  = 'rank-top-32010'
+    config.cache_storage = :fog
   end
 
