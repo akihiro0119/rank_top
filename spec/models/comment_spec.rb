@@ -16,13 +16,13 @@ RSpec.describe Comment, type: :model do
       it 'テキストが入力されていない場合' do
         @comment.text = nil
         @comment.valid?
-        expect(@comment.errors.full_messages).to include("Text can't be blank", 'Text is invalid. Input full-width characters.')
+        expect(@comment.errors.full_messages).to include("Textを入力してください")
       end
 
-      it 'テキストが1000文字以上の場合' do
-        @comment.text = 'あ' * 100
+      it 'テキストが100文字以上の場合' do
+        @comment.text = 'あ' * 10000
         @comment.valid?
-        expect(@comment.errors.full_messages).to include('Text is too long (maximum is 100 characters)')
+        expect(@comment.errors.full_messages).to include("Textは100文字以内で入力してください")
       end
     end
   end
