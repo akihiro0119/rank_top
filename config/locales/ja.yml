@@ -1,0 +1,13 @@
+ja:
+ activerecord:
+   attributes:
+     user:
+       name: お名前
+       profile: プロフィール
+       image: 画像
+     post:
+       title: タイトル
+       rank1: 1位
+       rank2: 2位
+       rank3: 3位
+       image: 画像
