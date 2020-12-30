@@ -50,5 +50,6 @@ test:
 production:
   <<: *default
   database: rank_top_production
-  username: rank_top
+  username: root
   password: <%= ENV['RANK_TOP_DATABASE_PASSWORD'] %>
+  socket: /var/lib/mysql/mysql.sock
