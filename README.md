@@ -197,3 +197,5 @@ jQueryを使い非同期通信で実装しました。
 <img width="383" alt="2f1a31831ccefd87adf6aa0571a78626" src="https://user-images.githubusercontent.com/73684696/102684407-8c47d480-421b-11eb-92d0-3ecbb7de6248.png">
 
 ### ローカルでの動作方法
+
+

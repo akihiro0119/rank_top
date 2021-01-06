@@ -4,6 +4,7 @@
   </div>
   <div class='container'>
     <%= form_with scope: resource, as: resource_name, url: registration_path(resource_name), html: { class: "mt-5, signupForm" }, local: true do |f| %>
+    
       <%= devise_error_messages! %>
 
       <div class="form-group">
@@ -31,11 +32,11 @@
 
         <div class="field">
           <%= f.label :image %><br/>
-          <%= f.file_field :image %>
+          <%= f.file_field :image, class: "icon_image" %>
         </div>
 
       <div class="text-center">
-        <%= f.submit "アカウントを作成", class: "btn submitBtn" %>
+        <%= f.submit "アカウントを作成", class: "btn btn-outline-secondary" %>
       </div>
     <% end %>
   </div>
