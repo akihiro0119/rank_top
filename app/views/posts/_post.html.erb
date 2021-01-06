@@ -3,6 +3,8 @@
   <div class="card-body border border-primary">
   
   <%= image_tag post.user.image.to_s , class:"icon_image"%>
+
+  <b><%=link_to post.user.name, user_path(post.user.id)%></b>
   
       <h4 class="card-title"><%= post.title %></h4>
       １位<p class="card-text"><%= post.rank1 %></p>
@@ -16,20 +18,20 @@
         </small>
       </p>
 
-      <% post.tags.each do |tag| %>
-    <span class= 'badge badge-primary'><%= tag.tag_name %></span>
-    <% end %>
-
       <div class="btn-group">
       <button type="button" class="btn btn-sm btn-outline-secondary">
         <%= link_to '詳細', post_path(post.id) , method: :get %></button>
-      <button type="button" class="btn btn-sm btn-outline-secondary">
-        <%=link_to post.user.name, user_path(post.user.id)%></button>
-    </div>
+      </div>
 
-      <div id="likes_buttons_<%= post.id %>">
+     
+
+    <div id="likes_buttons_<%= post.id %>">
       <%= render partial: 'likes/like', locals: { post: post} %>
     </div>
+
+      <% post.tags.each do |tag| %>
+        <span class= 'badge badge-primary'><%= tag.tag_name %></span>
+      <% end %>
   
 
   </div>  
