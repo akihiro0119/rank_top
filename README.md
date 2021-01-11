@@ -199,3 +199,7 @@ jQueryを使い非同期通信で実装しました。
 ### ローカルでの動作方法
 
 
+<img width="1153" alt="59b06f68eeea442014e7a1f8a3e36dc0" src="https://user-images.githubusercontent.com/73684696/104159923-8ec0d700-5433-11eb-9d11-1639b7ae9a0d.png">
+
+<img width="1138" alt="c7ceca49eab97f6758e69e604a301e6f" src="https://user-images.githubusercontent.com/73684696/104160043-c465c000-5433-11eb-9e60-dec8295e16ee.png">
+
